@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, Mail, Github, Linkedin, Circle } from 'lucide-react'
+import { ArrowDown, Mail, Github, Linkedin, Circle, Download } from 'lucide-react'
 import { ElegantShape } from '@/components/ui/shape-landing-hero'
 import { cn } from '@/lib/utils'
 
@@ -89,6 +89,14 @@ export default function Hero() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.10] border border-white/[0.12] text-white/80 hover:text-white font-medium text-sm transition-all duration-200"
               >
                 View projects
+              </a>
+              <a
+                href="/Nisarg_Makwana_CV.pdf"
+                download
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.06] hover:bg-white/[0.10] border border-white/[0.12] text-white/80 hover:text-white font-medium text-sm transition-all duration-200"
+              >
+                <Download size={15} />
+                Download CV
               </a>
             </motion.div>
 

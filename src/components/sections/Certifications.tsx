@@ -4,7 +4,7 @@ import { Award, ExternalLink } from 'lucide-react'
 const certs = [
   {
     title: 'Machine Learning',
-    issuer: 'Stanford University',
+    issuer: 'Stanford University · Coursera',
     icon: '🎓',
     color: 'from-indigo-500/15',
     iconBg: 'bg-indigo-500/10 border-indigo-500/20',
@@ -44,10 +44,18 @@ const certs = [
   },
   {
     title: 'Aerial Robotics',
-    issuer: 'University of Pennsylvania',
+    issuer: 'University of Pennsylvania · Coursera',
     icon: '🤖',
     color: 'from-amber-500/15',
     iconBg: 'bg-amber-500/10 border-amber-500/20',
+    link: null as string | null,
+  },
+  {
+    title: 'Research Internship',
+    issuer: 'National Innovation Foundation — India (NIF) · Dec 2018',
+    icon: '🔬',
+    color: 'from-teal-500/15',
+    iconBg: 'bg-teal-500/10 border-teal-500/20',
     link: null as string | null,
   },
 ]
