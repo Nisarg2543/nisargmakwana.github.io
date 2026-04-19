@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Github, Linkedin, Send, CheckCircle2 } from 'lucide-react'
+import { Mail, Phone, MapPin, Github, Linkedin, Send, CheckCircle2, Loader2 } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 
 const item = {
   hidden: { opacity: 0, y: 24 },
@@ -15,13 +16,35 @@ const container = {
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(false)
 
-  function handleSend(e: React.FormEvent) {
+  async function handleSend(e: React.FormEvent) {
     e.preventDefault()
     if (!form.name || !form.email || !form.message) return
-    const mailto = `mailto:nisarg2543@gmail.com?subject=${encodeURIComponent(`Portfolio enquiry from ${form.name}`)}&body=${encodeURIComponent(`${form.message}\n\nFrom: ${form.name}\nEmail: ${form.email}`)}`
-    window.location.href = mailto
-    setSent(true)
+    
+    setLoading(true)
+    setError(false)
+
+    try {
+      await emailjs.send(
+        'portfolio',
+        'template_5gvye3o',
+        {
+          from_name: form.name,
+          reply_to: form.email,
+          message: form.message,
+        },
+        'QMNrVeNydFl4TyY4h'
+      )
+      setSent(true)
+      setForm({ name: '', email: '', message: '' })
+    } catch (err) {
+      console.error('Failed to send email:', err)
+      setError(true)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -89,7 +112,7 @@ export default function Contact() {
             <div className="card-glass p-8 rounded-2xl flex flex-col items-center justify-center text-center gap-4 h-full">
               <CheckCircle2 size={40} className="text-emerald-400" />
               <h3 className="text-lg font-semibold text-white/90">Message sent!</h3>
-              <p className="text-sm text-white/45">Your email client should have opened. I'll be in touch soon.</p>
+              <p className="text-sm text-white/45">Thanks for reaching out. I'll be in touch soon.</p>
               <button onClick={() => setSent(false)} className="text-xs text-indigo-400 hover:text-indigo-300 mt-2 transition-colors">
                 Send another
               </button>
@@ -131,11 +154,13 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all duration-200 shadow-lg shadow-indigo-500/20"
+                disabled={loading}
+                className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm transition-all duration-200 shadow-lg shadow-indigo-500/20 disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                <Send size={14} />
-                Send message
+                {loading ? <Loader2 size={14} className="animate-spin" /> : <Send size={14} />}
+                {loading ? 'Sending...' : 'Send message'}
               </button>
+              {error && <p className="text-xs text-rose-400 text-center mt-2">Something went wrong. Please try again.</p>}
             </form>
           )}
         </motion.div>
