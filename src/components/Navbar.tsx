@@ -24,16 +24,26 @@ export default function Navbar() {
   }, [])
 
   useEffect(() => {
-    const ids = ['hero', 'about', 'skills', 'experience', 'certifications', 'projects', 'research', 'education', 'contact']
+    const ids = [
+      'hero',
+      'about',
+      'skills',
+      'experience',
+      'certifications',
+      'projects',
+      'research',
+      'education',
+      'contact',
+    ]
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
           if (entry.isIntersecting) setActiveSection(entry.target.id)
         })
       },
       { threshold: 0.25 }
     )
-    ids.forEach(id => {
+    ids.forEach((id) => {
       const el = document.getElementById(id)
       if (el) observer.observe(el)
     })
@@ -46,23 +56,25 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#08080f]/80 backdrop-blur-xl border-b border-white/[0.06]' : 'bg-transparent'
+        scrolled
+          ? 'bg-theme-base/80 backdrop-blur-xl border-b border-border-subtle'
+          : 'bg-transparent'
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 md:px-12 py-4 flex items-center justify-between">
-        <a href="#hero" className="font-semibold tracking-tight text-white">
-          Nisarg <span className="text-indigo-400">Makwana</span>
+        <a href="#hero" className="font-semibold tracking-tight text-theme-main">
+          Nisarg <span className="text-accent">Makwana</span>
         </a>
 
         <div className="hidden md:flex items-center gap-7">
-          {navLinks.map(link => (
+          {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               className={`text-sm transition-colors duration-200 ${
                 activeSection === link.href.slice(1)
-                  ? 'text-white'
-                  : 'text-white/45 hover:text-white/80'
+                  ? 'text-theme-main'
+                  : 'text-theme-muted hover:text-theme-main'
               }`}
             >
               {link.label}
@@ -70,7 +82,7 @@ export default function Navbar() {
           ))}
           <a
             href="mailto:nisarg2543@gmail.com"
-            className="text-sm px-4 py-1.5 rounded-full border border-white/[0.15] text-white/70 hover:border-indigo-500/60 hover:text-white transition-all duration-200"
+            className="text-sm px-4 py-1.5 rounded-full border border-subtle text-theme-muted hover:border-accent-border hover:text-theme-main transition-all duration-200"
           >
             Hire me
           </a>
@@ -78,7 +90,9 @@ export default function Navbar() {
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-white/70 hover:text-white"
+          className="md:hidden text-theme-muted hover:text-theme-main"
+          aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
           {mobileOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -90,15 +104,15 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-[#08080f]/95 backdrop-blur-xl border-b border-white/[0.06] overflow-hidden"
+            className="md:hidden bg-theme-base/95 backdrop-blur-xl border-b border-subtle overflow-hidden"
           >
             <div className="px-6 pb-6 pt-2">
-              {navLinks.map(link => (
+              {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block py-3 text-sm text-white/60 hover:text-white border-b border-white/[0.05] last:border-0 transition-colors"
+                  className="block py-3 text-sm text-theme-muted hover:text-theme-main border-b border-subtle last:border-0 transition-colors"
                 >
                   {link.label}
                 </a>

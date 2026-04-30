@@ -6,57 +6,43 @@ const certs = [
     title: 'Machine Learning',
     issuer: 'Stanford University · Coursera',
     icon: '🎓',
-    color: 'from-indigo-500/15',
-    iconBg: 'bg-indigo-500/10 border-indigo-500/20',
     link: null as string | null,
   },
   {
     title: 'Data Analysis in Python',
     issuer: 'Jovian.ml',
     icon: '🐍',
-    color: 'from-emerald-500/15',
-    iconBg: 'bg-emerald-500/10 border-emerald-500/20',
-    link: null as string | null,
+    link: '/certs/Jovian ML certificate.pdf',
   },
   {
     title: 'FEAST Software Workshop',
     issuer: 'ISRO — Indian Space Research Organisation',
     icon: '🚀',
-    color: 'from-rose-500/15',
-    iconBg: 'bg-rose-500/10 border-rose-500/20',
-    link: null as string | null,
+    link: '/certs/FEAST software Certificate.pdf',
   },
   {
     title: 'SolidWorks Certified',
     issuer: 'RCAD Institute',
     icon: '⚙️',
-    color: 'from-cyan-500/15',
-    iconBg: 'bg-cyan-500/10 border-cyan-500/20',
-    link: null as string | null,
+    link: '/certs/SOLIDWORKS_RCAD.pdf',
   },
   {
     title: 'AutoCAD 2D Certified',
     issuer: 'RCAD Institute',
     icon: '📐',
-    color: 'from-violet-500/15',
-    iconBg: 'bg-violet-500/10 border-violet-500/20',
-    link: null as string | null,
+    link: '/certs/AutoCad Certificate.pdf',
   },
   {
     title: 'Aerial Robotics',
     issuer: 'University of Pennsylvania · Coursera',
     icon: '🤖',
-    color: 'from-amber-500/15',
-    iconBg: 'bg-amber-500/10 border-amber-500/20',
-    link: null as string | null,
+    link: '/certs/Coursera HHTXKY7QT6N4.pdf',
   },
   {
     title: 'Research Internship',
     issuer: 'National Innovation Foundation — India (NIF) · Dec 2018',
     icon: '🔬',
-    color: 'from-teal-500/15',
-    iconBg: 'bg-teal-500/10 border-teal-500/20',
-    link: null as string | null,
+    link: '/certs/NIF_Certi.pdf',
   },
 ]
 
@@ -67,7 +53,12 @@ const container = {
 
 const item = {
   hidden: { opacity: 0, scale: 0.94, y: 16 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.55, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] } },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.25, 0.4, 0.25, 1] as [number, number, number, number] },
+  },
 }
 
 export default function Certifications() {
@@ -80,12 +71,11 @@ export default function Certifications() {
         viewport={{ once: true, margin: '-80px' }}
         className="mb-16"
       >
-        <p className="text-xs font-medium tracking-[0.2em] uppercase text-rose-400/80 mb-3">Certifications</p>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white/90">
-          Credentials &{' '}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-rose-300 to-amber-300">
-            Courses
-          </span>
+        <p className="text-xs font-medium tracking-[0.2em] uppercase text-accent mb-3">
+          Certifications
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-theme-main">
+          Credentials & <span className="text-gradient">Courses</span>
         </h2>
       </motion.div>
 
@@ -111,21 +101,29 @@ export default function Certifications() {
             >
               <Wrapper
                 {...wrapperProps}
-                className={`block bg-white/[0.05] border border-white/[0.10] bg-gradient-to-br ${cert.color} to-transparent p-5 rounded-2xl group hover:bg-white/[0.08] hover:border-white/[0.18] transition-all duration-200 ${cert.link ? 'cursor-pointer' : 'cursor-default'}`}
+                className={`block card-glass p-5 group hover:border-hover hover:bg-surface-hover transition-all duration-200 ${cert.link ? 'cursor-pointer' : 'cursor-default'}`}
               >
                 <div className="flex items-start gap-4">
-                  <div className={`w-10 h-10 rounded-xl border ${cert.iconBg} flex items-center justify-center text-xl flex-shrink-0`}>
+                  <div
+                    className={`w-10 h-10 rounded-xl border bg-accent-surface border-accent-border flex items-center justify-center text-xl flex-shrink-0`}
+                  >
                     {cert.icon}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="text-sm font-semibold text-white/88 leading-snug">{cert.title}</h3>
-                      {cert.link
-                        ? <ExternalLink size={13} className="text-white/30 group-hover:text-white/60 flex-shrink-0 mt-0.5 transition-colors" />
-                        : <Award size={13} className="text-white/20 flex-shrink-0 mt-0.5" />
-                      }
+                      <h3 className="text-sm font-semibold text-theme-main leading-snug">
+                        {cert.title}
+                      </h3>
+                      {cert.link ? (
+                        <ExternalLink
+                          size={13}
+                          className="text-theme-faint group-hover:text-theme-main flex-shrink-0 mt-0.5 transition-colors"
+                        />
+                      ) : (
+                        <Award size={13} className="text-theme-faint flex-shrink-0 mt-0.5" />
+                      )}
                     </div>
-                    <p className="text-xs text-white/50 mt-1">{cert.issuer}</p>
+                    <p className="text-xs text-theme-muted mt-1">{cert.issuer}</p>
                   </div>
                 </div>
               </Wrapper>
